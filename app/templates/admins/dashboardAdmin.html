@@ -1,0 +1,9 @@
+{% extends "../admins/base_admin.html" %} {% load static %}  {% block admin_content %}
+<div class="d-flex flex-column">
+    <h1>Dashboard Admin</h1>
+    <canvas id="prestamosChart" width="800" height="400"></canvas>
+</div>
+{% endblock %}
+{% block script %}
+  <script src="{% static 'js/graficos.js' %}"></script>
+{% endblock %}

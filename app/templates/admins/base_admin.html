@@ -1,0 +1,101 @@
+{% extends "../landingPage/base.html" %}{% block content %}
+<div class="row">
+  <div class="col-2 p-0 bg-dark vh-100">
+    <div class="v-100 bg-dark d-flex flex-column align-content-center">
+      <p
+        class="text-white fw-bold align-self-center text-center fs-5 d-none d-lg-block"
+      >
+        Panel de Adminstrador
+      </p>
+      <a
+        href="{% url 'dashboard' %}"
+        class="align-self-center m-2"
+        data-bs-toggle="popover"
+        data-bs-trigger="hover"
+        data-bs-content="Panel de Administracion"
+      >
+        <ion-icon
+          name="people-circle-outline"
+          class="fs-1 text-white"
+        ></ion-icon>
+      </a>
+      <div class="btn-group-vertical" role="group">
+        <a
+          class="btn btn-dark d-flex justify-content-center"
+          href="{% url 'agregar' %}"
+          data-bs-toggle="popover"
+          data-bs-trigger="hover"
+          data-bs-content="Agregar Libro"
+        >
+          <div class="d-flex justify-content-start column-gap-1">
+            <ion-icon name="add-circle-outline" class="fs-1"></ion-icon>
+            <p class="align-self-center fw-bold m-0 d-none d-md-block">
+              Agregar Libros
+            </p>
+          </div>
+        </a>
+        <a
+          class="btn btn-dark d-flex justify-content-center"
+          href="{% url 'inventario' %}"
+          data-bs-toggle="popover"
+          data-bs-trigger="hover"
+          data-bs-content="Ver Libros"
+        >
+          <div class="d-flex justify-content-start column-gap-1">
+            <ion-icon name="eye-outline" class="fs-1"></ion-icon>
+            <p class="align-self-center fw-bold m-0 d-none d-md-block">
+              Ver Libros
+            </p>
+          </div>
+        </a>
+        <a
+          class="btn btn-dark d-flex justify-content-center"
+          href="{% url 'prestamos' %}"
+          data-bs-toggle="popover"
+          data-bs-trigger="hover"
+          data-bs-content="Libros Prestados"
+        >
+          <div class="d-flex justify-content-start column-gap-1">
+            <ion-icon name="book-outline" class="fs-1"></ion-icon>
+            <p class="align-self-center fw-bold m-0 d-none d-md-block">
+              Libros Prestados
+            </p>
+          </div>
+        </a>
+        <a
+          class="btn btn-dark d-flex justify-content-center"
+          href="{% url 'historiald' %}"
+          data-bs-toggle="popover"
+          data-bs-trigger="hover"
+          data-bs-content="Historial Devolucion"
+        >
+          <div class="d-flex justify-content-start">
+            <ion-icon name="time-outline" class="fs-1"></ion-icon>
+            <p class="align-self-center fw-bold m-0 d-none d-md-block">
+              Historial Devolucion
+            </p>
+          </div>
+        </a>
+        <a
+          class="btn btn-dark d-flex justify-content-center"
+          href="{% url 'usuarios' %}"
+          data-bs-toggle="popover"
+          data-bs-trigger="hover"
+          data-bs-content="Usuarios"
+        >
+          <div class="d-flex justify-content-start">
+            <ion-icon name="people-outline" class="fs-1"></ion-icon>
+            <p class="align-self-center fw-bold m-0 d-none d-md-block">
+              Usuarios
+            </p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="col-10 d-flex justify-content-center p-0">
+    {% block admin_content %} {% endblock %}
+  </div>
+</div>
+{% block script %}{% endblock %}
+{% endblock %}

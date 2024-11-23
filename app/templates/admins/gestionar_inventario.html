@@ -1,0 +1,279 @@
+{% extends "../admins/base_admin.html" %}{% block admin_content %}
+<div class="container mt-3">
+  <div class="d-flex align-items-center gap-3">
+    <h1 class="mb-0">Libros</h1>
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Titulo</th>
+        <th scope="col">Disponibilidad</th>
+        <th scope="col" class="d-none d-md-table-cell">Cantidad Total</th>
+        <th scope="col" class="d-none d-md-table-cell">Cantidad Disponible</th>
+        <th scope="col">Opciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for inventario in libros %}
+      <tr>
+        <td>{{ inventario.titulo }}</td>
+        <td>{% if inventario.disponibilidad %}✔{% else %}❌{% endif %}</td>
+        <td class="d-none d-md-table-cell">{{ inventario.cantidad_total }}</td>
+        <td class="d-none d-md-table-cell">{{ inventario.cantidad_disponible }}</td>
+        <td class="d-flex flex-column align-items-center row-gap-2 d-lg-block">
+          <button
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#modal-{{ inventario.id }}"
+            title="Mas Detalles"
+          >
+            <i class="bi bi-info-circle"></i>
+          </button>
+          <button
+            class="btn btn-success"
+            data-bs-toggle="modal"
+            data-bs-target="#update-{{inventario.id}}"
+            title="Actualizar"
+          >
+            <i class="bi bi-arrow-repeat"></i>
+          </button>
+          <a href="{% url 'eliminar' inventario.id %}" class="btn btn-danger">
+            <i class="bi bi-trash"></i>
+          </a>
+        </td>
+      </tr>
+
+      <!-- Modal detalles -->
+      <div
+        class="modal fade"
+        id="modal-{{ inventario.id }}"
+        tabindex="-1"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="modal-{{ inventario.id }}">
+                Mas Detalles
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <ul class="list-group">
+                <p class="fs-3 fw-bold text-danger m-1">Titulo:</p>
+                <li class="list-group-item list-group-item-primary">
+                  <p class="m-0">{{ inventario.titulo }}</p>
+                </li>
+
+                <p class="fs-3 fw-bold text-danger m-1">Autor:</p>
+                <li class="list-group-item list-group-item-primary">
+                  <p class="m-0">{{ inventario.autor }}</p>
+                </li>
+
+                <p class="fs-3 fw-bold text-danger m-1">Género:</p>
+                <li class="list-group-item list-group-item-primary">
+                  <p class="m-0">{{ inventario.genero }}</p>
+                </li>
+
+                <p class="fs-3 fw-bold text-danger m-1">
+                  Fecha de Publicación:
+                </p>
+                <li class="list-group-item list-group-item-primary">
+                  <p class="m-0">{{ inventario.fecha_publicacion }}</p>
+                </li>
+
+                <p class="fs-3 fw-bold text-danger m-1">Disponibilidad:</p>
+                <li class="list-group-item list-group-item-primary">
+                  <p class="m-0">{{ inventario.disponibilidad }}</p>
+                </li>
+
+                <p class="fs-3 fw-bold text-danger m-1">ISBN:</p>
+                <li class="list-group-item list-group-item-primary">
+                  <p class="m-0">{{ inventario.isbn }}</p>
+                </li>
+
+                <p class="fs-3 fw-bold text-danger m-1">Cantidad Total:</p>
+                <li class="list-group-item list-group-item-primary">
+                  <p class="m-0">{{ inventario.cantidad_total }}</p>
+                </li>
+
+                <p class="fs-3 fw-bold text-danger m-1">Cantidad Disponible:</p>
+                <li class="list-group-item list-group-item-primary">
+                  <p class="m-0">{{ inventario.cantidad_disponible }}</p>
+                </li>
+              </ul>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-danger"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Actualizar  -->
+      <div
+        class="modal fade"
+        id="update-{{ inventario.id }}"
+        tabindex="-1"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-body">
+              <div class="d-flex flex-row-reverse">
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <form action="{% url 'actualizar' inventario.id %}" method="post">
+                {% csrf_token %}
+                <h1
+                  class="modal-title text-center"
+                  id="update-{{ inventario.id }}"
+                >
+                  Actualizar
+                </h1>
+                <div class="row row-cols-1 row-cols-lg-2 g-3">
+                  <div class="col">
+                    <div class="form-floating">
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="titulo"
+                        id="titulo"
+                        placeholder=""
+                        value="{{ inventario.titulo }}"
+                      />
+                      <label for="titulo">Titulo</label>
+                    </div>
+                  </div>
+
+                  <div class="col">
+                    <div class="form-floating">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="autor"
+                        name="autor"
+                        placeholder=""
+                        value="{{ inventario.autor }}"
+                      />
+                      <label for="autor">Autor</label>
+                    </div>
+                  </div>
+
+                  <div class="col">
+                    <div class="form-floating">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="genero"
+                        name="genero"
+                        placeholder=""
+                        value="{{ inventario.genero }}"
+                      />
+                      <label for="genero">Género</label>
+                    </div>
+                  </div>
+
+                  <div class="col">
+                    <div class="form-floating">
+                      <input
+                        type="date"
+                        class="form-control"
+                        id="fechadepublicacion"
+                        name="fecha_publicacion"
+                        value="{{ inventario.fecha_publicacion | date:'Y-m-d' }}"
+                      />
+                      <label for="fechadepublicacion"
+                        >Fecha de Publicacion</label
+                      >
+                    </div>
+                  </div>
+
+                  <div class="col">
+                    <div class="form-floating">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="isbn"
+                        name="isbn"
+                        placeholder=""
+                        value="{{ inventario.isbn }}"
+                      />
+                      <label for="isbn">ISBN</label>
+                    </div>
+                  </div>
+
+                  <div class="col">
+                    <div class="form-floating">
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="cantidadtotal"
+                        name="cantidad_total"
+                        placeholder=""
+                        value="{{ inventario.cantidad_total }}"
+                      />
+                      <label for="cantidadtotal">Cantidad Total</label>
+                    </div>
+                  </div>
+
+                  <div class="col">
+                    <div class="form-floating">
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="cantidaddisponible"
+                        name="cantidad_disponible"
+                        placeholder=""
+                        value="{{ inventario.cantidad_disponible }}"
+                      />
+                      <label for="cantidaddisponible"
+                        >Cantidad Disponible</label
+                      >
+                    </div>
+                  </div>
+
+                  <div class="col d-flex align-items-center justify-content-center gap-2">
+                    <input type="hidden" name="disponibilidad" value="False" >
+                    <input class="form-check-input"type="checkbox" value="True"
+                    name="disponibilidad" {% if inventario.disponibilidad %} checked {% endif %}  id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                      Disponible
+                    </label>
+                    <br />
+                  </div>
+                </div>
+                <p class="text-danger text-center mt-3">{{ error }}</p>
+                <div class="container text-center mt-4 d-grid">
+                  <button class="btn btn-primary" type="submit">
+                    Actualizar Datos
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

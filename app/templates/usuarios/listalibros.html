@@ -1,0 +1,91 @@
+{% extends "../landingPage/base.html" %} {% block content %}
+<div class="container my-5">
+  <h1>Libros Disponibles</h1>
+  <ul class="list-group mt-3">
+    {% for book in libro %}
+    <li class="list-group-item d-flex">
+      <div class="container">
+        <p class="fs-3 mb-0">{{ book.titulo }}</p>
+        <p class="font-monospace mb-0">Autor: {{ book.autor }}</p>
+        <p class="font-monospace mb-0">Género: {{ book.genero }}</p>
+        <p class="font-monospace">
+          Cantidad Disponible: {{ book.cantidad_disponible }}
+        </p>
+      </div>
+      <button
+        class="btn btn-info align-self-center"
+        data-bs-toggle="modal"
+        data-bs-target="#modal-prestamo{{ book.id }}"
+      >
+        Prestar
+      </button>
+    </li>
+
+    <!-- Modal Prestamo -->
+    <div class="modal fade" id="modal-prestamo{{ book.id }}">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body">
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+            <div class="container-fluid">
+              <h1 class="text-center">Realizar Prestamo</h1>
+              <div class="container-fluid row g-3 p-5">
+                <div class="col-12 col-md-6">
+                  <label>Titulo</label>
+                  <input
+                    type="text"
+                    class="form-control form-control-lg"
+                    value="{{ book.titulo }}"
+                    readonly
+                  />
+                </div>
+                <div class="col-12 col-md-6">
+                  <label>Autor:</label>
+                  <input
+                    type="text"
+                    class="form-control form-control-lg"
+                    value="{{ book.autor }}"
+                    readonly
+                  />
+                </div>
+                <div class="col-12 col-md-6">
+                  <label>Género:</label>
+                  <input
+                    type="text"
+                    class="form-control form-control-lg"
+                    value="{{ book.genero }}"
+                    readonly
+                  />
+                </div>
+                <div class="col-12 col-md-6">
+                  <label>Cantidad Disponible:</label>
+                  <input
+                    type="text"
+                    class="form-control form-control-lg"
+                    value="{{ book.cantidad_disponible }}"
+                    readonly
+                  />
+                </div>
+                <div class="col-12 d-grid">
+                  <a
+                    href="{% url 'solicitud' book.id %}"
+                    class="btn btn-success"
+                    >Realizar Prestamo</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

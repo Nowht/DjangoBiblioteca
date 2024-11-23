@@ -1,0 +1,41 @@
+{% extends "../admins/base_admin.html" %}{% block admin_content %}
+<div class="bg-primary-subtle text-black fw-bold d-flex align-items-center">
+  <form action="{% url 'registro' %}" method="post">
+    {% csrf_token %}
+    <h1 class="text-center">Nuevo Usuario</h1>
+    <div class="row text-center row-gap-3 mx-0">
+      <div class="container-fluid col-4 me-0">
+        <label class="form-label" for="username">Usuario</label>
+        <input type="text" id="username" name="username" class="form-control" />
+      </div>
+      <div class="container-fluid col-4 ms-0">
+        <label class="form-label" for="password">Contraseña</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          class="form-control"
+        />
+      </div>
+      <div class="container-fluid col-8">
+        <label class="form-label" for="email">Correo Electronico</label>
+        <input type="email" id="email" name="email" class="form-control" />
+      </div>
+      <div class="container-fluid col-12">
+        <label class="form-check-label" for="check">Estado</label>
+        <input
+          type="checkbox"
+          id="check"
+          name="estado_membresia"
+          value="True"
+          class="form-check-input"
+        />
+        <input type="hidden" value="False" name="estado_membresia" />
+      </div>
+      <div class="container-fluid col-12">
+        <button type="submit" class="btn btn-primary">Registrar</button>
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "../admins/base_admin.html" %}{% block admin_content %}
+<div class="container p-1">
+    <h1>Historial de Devoluciones</h1>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Libro</th>
+            <th scope="col">Usuario</th>
+            <th scope="col" class="d-none d-md-table-cell">Fecha Prestamo</th>
+            <th scope="col">Fecha Devolucion</th>
+            <th scope="col" class="d-none d-md-table-cell">Devuelto</th>
+            <th scope="col">Opciones</th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            {% for d in devoluciones %}
+            <tr>
+                <td>{{ d.libro.titulo }}</td>
+                <td>{{ d.usuario }}</td>
+                <td class="d-none d-md-table-cell">{{ d.fecha_prestamo }}</td>
+                <td>{{ d.fecha_devolucion }}</td>
+                <td class="d-none d-md-table-cell">{{ d.devuelto }}</td>
+              </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+</div>
+{% endblock %}

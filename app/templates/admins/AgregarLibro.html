@@ -1,0 +1,53 @@
+{% extends "../admins/base_admin.html" %}{% block admin_content %}
+<div class="container p-0 mt-1 d-flex align-items-center justify-content-center">
+  <div class="flex-grow-1 flex-md-grow-0 card text-bg-dark w-75 mb-3">
+      <div class="card-body m-5">
+              <h1 class="text-center">Agregar Libro</h1>
+          <form class="row g-3" method="post" action="{% url 'agregar' %}">
+            {% csrf_token %}
+              <div class="col-md-6">
+                  <label for="titulo" class="form-label">Titulo</label>
+                  <input type="text" class="form-control" name="titulo" id="titulo">
+              </div>
+              <div class="col-md-6">
+                  <label for="autor" class="form-label">Autor</label>
+                  <input type="text" class="form-control" name="autor" id="autor">
+              </div>    
+              <div class="col-md-6">
+                  <label for="genero" class="form-label">Género</label>
+                  <input type="text" class="form-control" name="genero" id="genero">
+              </div>
+              <div class="col-md-6">
+                  <label for="fecha_publicacion" class="form-label">Fecha de Publicación</label>
+                  <input type="date" class="form-control" name="fecha_publicacion" id="fecha_publicacion">
+              </div>
+              <div class="col-md-6">
+                  <label for="isbn" class="form-label">ISBN</label>
+                  <input type="number" class="form-control" name="isbn" id="isbn">
+              </div>
+              <div class="col-md-3">
+                  <label for="cantidad_total" class="form-label">Cantidad Total</label>
+                  <input type="number" class="form-control" name="cantidad_total" id="cantidad_total">
+              </div>
+              <div class="col-md-3">
+                  <label for="cantidad_disponible" class="form-label">Cantidad Disponible</label>
+                  <input type="number" class="form-control" name="cantidad_disponible" id="cantidad_disponible">
+              </div>   
+              <div class="col-12 d-flex justify-content-center">
+                  <div class="form-check">
+                      <input type="hidden" name="disponibilidad" value="False">
+                      <label class="form-check-label" for="gridCheck">Disponible</label>
+                      <input class="form-check-input" name="disponibilidad" type="checkbox" id="gridCheck" value="True">
+                  </div>
+              </div>
+              <p class="text-danger fw-bold">{{ error }}</p>
+              <div class="col-12 d-grid">
+                  <button type="submit" class="btn btn-primary">Agregar Nuevo Libro</button>
+              </div>
+          </form>
+      </div>
+  </div>
+</div>
+
+
+{% endblock %}

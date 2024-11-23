@@ -1,0 +1,8 @@
+{% extends "../landingPage/base.html" %} {% block content %}
+<div class="container d-flex flex-column align-items-center gap-2 justify-content-center vh-100">
+  <i class="bi bi-person fs-1"></i>
+  <h1>Bienvenido, {{ user.username }}</h1>
+  <a href="{% url 'perfil_usuario' %}" class="btn btn-primary">Mi Perfil</a>
+  <a href="{% url 'lista_libros' %}" class="btn btn-warning">Prestar Libros</a>
+</div>
+{% endblock %}
