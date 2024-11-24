@@ -1,10 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+class genero(models.Model):
+    genero = models.CharField(max_length=100, unique=True)
+
 class libros(models.Model):
     titulo = models.CharField(max_length=100)
     autor = models.CharField(max_length=100)
-    genero = models.CharField(max_length=100)
+    genero = models.ForeignKey(genero, on_delete=models.SET_NULL, null=True, blank=True)
     fecha_publicacion = models.DateField()
     disponibilidad = models.BooleanField(default=True)
     isbn = models.CharField(max_length=13, unique=True)

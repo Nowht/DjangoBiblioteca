@@ -10,6 +10,7 @@ urlpatterns = [
     path('user-dashboard/', usuario_dashboard, name='usuario_dashboard'),
     path('perfil/', profile, name='perfil_usuario'),
     path('agregar/',agregar_libros,name='agregar'),
+    path('agregar-genero/',agregar_genero,name='genero'),
     path('inventario/',gestionar_inventario,name='inventario'),
     path('libros/',lista_libros,name='lista_libros'),
     path('solicitud/<int:id>/',solicitar_libro,name='solicitud'),

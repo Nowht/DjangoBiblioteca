@@ -1,12 +1,15 @@
 {% extends "../admins/base_admin.html" %}{% block admin_content %}
-<div class="bg-primary-subtle text-black fw-bold d-flex align-items-center">
+<div class="bg-primary-subtle w-100 text-black fw-bold d-flex flex-column justify-content-center align-items-center">
   <form action="{% url 'registro' %}" method="post">
     {% csrf_token %}
     <h1 class="text-center">Nuevo Usuario</h1>
     <div class="row text-center row-gap-3 mx-0">
+      {% if error %}
+      <p class="text-danger fw-bold">{{ error }}</p>
+      {% endif %}
       <div class="container-fluid col-4 me-0">
         <label class="form-label" for="username">Usuario</label>
-        <input type="text" id="username" name="username" class="form-control" />
+        <input type="text" id="username" name="username" class="form-control" required/>
       </div>
       <div class="container-fluid col-4 ms-0">
         <label class="form-label" for="password">Contraseña</label>
@@ -15,22 +18,16 @@
           id="password"
           name="password"
           class="form-control"
+          required
         />
       </div>
       <div class="container-fluid col-8">
         <label class="form-label" for="email">Correo Electronico</label>
-        <input type="email" id="email" name="email" class="form-control" />
+        <input type="email" id="email" name="email" class="form-control" required/>
       </div>
-      <div class="container-fluid col-12">
-        <label class="form-check-label" for="check">Estado</label>
-        <input
-          type="checkbox"
-          id="check"
-          name="estado_membresia"
-          value="True"
-          class="form-check-input"
-        />
-        <input type="hidden" value="False" name="estado_membresia" />
+      <div class="col-12">
+        <label for="es_admin">Es admin</label>
+        <input type="checkbox" id="es_admin" name="es_admin" value="es_admin" class="form-check-input">
       </div>
       <div class="container-fluid col-12">
         <button type="submit" class="btn btn-primary">Registrar</button>

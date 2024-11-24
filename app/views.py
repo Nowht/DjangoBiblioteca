@@ -100,11 +100,18 @@ def nuevo_usuario(request):
         if User.objects.filter(username=datos['username']).exists():
             return render(request, 'admins/registro.html', {'error':'El nombre de usuario ya existe'})
 
+        if User.objects.filter(email=datos['email']).exists():
+            return render(request, 'admins/registro.html', {'error':'El correo electronico ya existe'})
+
         new_usuario = User.objects.create_user(
             username=datos['username'],
             password=datos['password'],
             email=datos['email'],
         )
+
+        if 'es_admin' in datos :
+            new_usuario.is_staff = True
+        new_usuario.save()
 
         return redirect('usuarios')
 
@@ -142,14 +149,16 @@ def gestionar_inventario(request):
 #Vista para agregar libros
 @user_passes_test(es_admin)
 def agregar_libros(request):
+    gender = genero.objects.all()
     if request.method == 'POST':
         nuevo_libro = request.POST.dict()
+        libro_genero = genero.objects.get(id=nuevo_libro['genero'])
 
         try:
             new_book, nuevo = libros.objects.get_or_create(
             titulo = nuevo_libro['titulo'],
             autor = nuevo_libro['autor'],
-            genero = nuevo_libro['genero'],
+            genero = libro_genero,
             fecha_publicacion = nuevo_libro['fecha_publicacion'],
             disponibilidad = nuevo_libro['disponibilidad'],
             isbn = nuevo_libro['isbn'],
@@ -157,13 +166,19 @@ def agregar_libros(request):
             cantidad_disponible = nuevo_libro['cantidad_disponible'],
             
         )
-            return redirect('dashboard')
+            return redirect('agregar')
 
         except IntegrityError:
             error_isbn = f"El ISBN '{nuevo_libro['isbn']}' ya esta registrado"
-            return render(request, 'admins/AgregarLibro.html',{"error":error_isbn})
+            return render(request, 'admins/AgregarLibro.html',{"error":error_isbn, "genero":gender})
         
-    return render(request, 'admins/AgregarLibro.html')
+    return render(request, 'admins/AgregarLibro.html', {"genero":gender})
+
+#Vista para agregar generos
+@user_passes_test(es_admin)
+def agregar_genero(request):
+    nuevo = genero.objects.get_or_create(genero=request.POST['genero'])
+    return redirect('agregar')
 
 # Vista para actualizar datos de los libros
 @user_passes_test(es_admin)

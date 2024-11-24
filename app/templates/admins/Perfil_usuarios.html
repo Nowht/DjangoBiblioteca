@@ -17,7 +17,11 @@
     <tbody class="table-group-divider">
       {% for u in usuarios %}
       <tr>
-        <th>{{ u.username }}</th>
+        {% if u.is_staff %}
+          <th class="text-warning">{{ u.username }}</th>
+        {% else %}
+          <th>{{ u.username }}</th>
+        {% endif %}
         <td>{{ u.perfil.numero_membresia }}</td>
         <td class="d-none d-md-table-cell">{{ u.perfil.fecha_registro }}</td>
         <td class="d-none d-md-table-cell">
@@ -75,6 +79,11 @@
                 <p class="fs-3 fw-bold text-danger m-1">Usuario:</p>
                 <li class="list-group-item list-group-item-primary">
                   <p class="m-0">{{ u.perfil.usuario.username }}</p>
+                </li>
+
+                <p class="fs-3 fw-bold text-danger m-1">Correo Electronico:</p>
+                <li class="list-group-item list-group-item-primary">
+                  <p class="m-0">{{ u.perfil.usuario.email }}</p>
                 </li>
 
                 <p class="fs-3 fw-bold text-danger m-1">Numero Membresia:</p>

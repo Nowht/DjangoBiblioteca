@@ -15,7 +15,13 @@
               </div>    
               <div class="col-md-6">
                   <label for="genero" class="form-label">Género</label>
-                  <input type="text" class="form-control" name="genero" id="genero">
+                  <select class="form-select" name="genero" aria-label="Default select example">
+                    <option selected>Selecciona el genero</option>
+                    {% for g in genero %}
+                    <option value="{{ g.id }}">{{ g.genero }}</option>
+                    {% endfor %}
+                  </select>
+                  <a href="" data-bs-toggle="modal" data-bs-target="#agregar" class="form-text text-white">¿No encuentras el genero? ¡Agregalo!</a>
               </div>
               <div class="col-md-6">
                   <label for="fecha_publicacion" class="form-label">Fecha de Publicación</label>
@@ -47,6 +53,59 @@
           </form>
       </div>
   </div>
+
+  <!-- Modal Genero -->
+  <div
+  class="modal fade"
+  id="agregar"
+  tabindex="-1"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="d-flex flex-row-reverse">
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <form
+          action="{% url 'genero' %}"
+          method="post"
+        >
+          {% csrf_token %}
+          <h1 class="modal-title text-center">
+            Agregar Genero
+          </h1>
+          <div class="row m-2">
+            <div class="col">
+              <div class="form-floating">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="genero"
+                  id="genero"
+                  placeholder=""
+                />
+                <label for="genero">Agrega el genero</label>
+              </div>
+            </div>
+          </div>
+          <p class="text-danger text-center mt-3">{{ error }}</p>
+          <div class="container text-center mt-4 d-grid">
+            <button class="btn btn-primary" type="submit">
+              Agregar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 </div>
 
 

@@ -78,7 +78,7 @@
 
                 <p class="fs-3 fw-bold text-danger m-1">Género:</p>
                 <li class="list-group-item list-group-item-primary">
-                  <p class="m-0">{{ inventario.genero }}</p>
+                  <p class="m-0">{{ inventario.genero.genero }}</p>
                 </li>
 
                 <p class="fs-3 fw-bold text-danger m-1">
@@ -185,7 +185,7 @@
                         id="genero"
                         name="genero"
                         placeholder=""
-                        value="{{ inventario.genero }}"
+                        value="{{ inventario.genero.genero }}"
                       />
                       <label for="genero">Género</label>
                     </div>
