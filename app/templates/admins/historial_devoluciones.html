@@ -7,8 +7,7 @@
             <th scope="col">Libro</th>
             <th scope="col">Usuario</th>
             <th scope="col" class="d-none d-md-table-cell">Fecha Prestamo</th>
-            <th scope="col">Fecha Devolucion</th>
-            <th scope="col" class="d-none d-md-table-cell">Devuelto</th>
+            <th scope="col" class="d-none d-md-table-cell">Fecha Devolucion</th>
             <th scope="col">Opciones</th>
           </tr>
         </thead>
@@ -18,11 +17,76 @@
                 <td>{{ d.libro.titulo }}</td>
                 <td>{{ d.usuario }}</td>
                 <td class="d-none d-md-table-cell">{{ d.fecha_prestamo }}</td>
-                <td>{{ d.fecha_devolucion }}</td>
-                <td class="d-none d-md-table-cell">{{ d.devuelto }}</td>
+                <td class="d-none d-md-table-cell">{{ d.fecha_devolucion }}</td>
+                <td>
+                  <button 
+                  class="btn btn-warning d-inline-flex btn-sm py-1" 
+                  data-bs-toggle="modal"
+                  data-bs-target="#info-{{d.id}}"
+                  title="mas detalles"  
+                  >
+                    <i class="bi bi-info-circle fs-5"></i>
+                  </button>  
+                </td>
               </tr>
-            {% endfor %}
-        </tbody>
-      </table>
+
+    <!-- Modal Devolver -->
+          <div
+            class="modal fade"
+            id="info-{{d.id}}"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable">
+              <div class="modal-content">
+                <div class="modal-body">
+                  <div class="d-flex justify-content-end">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="container d-flex flex-column align-items-center">
+                    <h1 class="text-center">Informacion de la Devolucion</h1>
+                    <div class="row m-3 align-items-center">
+                        <div class="col-6">
+                            <label class="fw-bold" for="">Libro</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" class=" form-control-plaintext" readonly value="{{ d.libro.titulo }}">
+                        </div>
+                        <div class="col-6">
+                            <label class="fw-bold" for="">Usuario</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="text" class="form-control-plaintext" readonly value="{{ d.usuario }}">
+                        </div>
+                        <div class="col-6">
+                            <label class="fw-bold" for="">Fecha Prestamo</label>
+                        </div>
+                        <div class="col-6">
+                            <input type="date" class="form-control-plaintext" readonly value="{{ d.fecha_prestamo | date:'Y-m-d' }}">
+                        </div>
+                        <div class="col-6">
+                          <label class="fw-bold" for="">Fecha Devuelto</label>
+                        </div>
+                        <div class="col-6">
+                          <input type="date" class="form-control-plaintext" readonly value="{{ d.fecha_devolucion | date:'Y-m-d' }}">
+                        </div>
+                        <div class="col-6">
+                          <label class="fw-bold" for="">Devuelto</label>
+                        </div>
+                        <div class="col-6">
+                          <input type="text" class=" form-control-plaintext" readonly value="{% if d.devuelto %}Sí{%else%}No{% endif %}">
+                        </div>
+                    </div>
+                   <div class="d-flex column-gap-2">
+                    <button class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                   </div>
+                 </div>
+                </div>
+              </div>
+            </div>
+          </div>              
+          {% endfor %}
+      </tbody>
+    </table>
 </div>
 {% endblock %}

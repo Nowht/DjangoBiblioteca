@@ -15,9 +15,16 @@ fetch('/libros-mas-prestados/')
             }]
         },
         options: {
+            responsive: true, // Hacer el gráfico responsive
+            maintainAspectRatio: false, // Permitir que cambie de proporción
             scales: {
                 y: {
                     beginAtZero: true
+                }
+            },
+            plugins: {
+                legend: {
+                    position: 'top', // Ajustar la posición de la leyenda
                 }
             }
         }
