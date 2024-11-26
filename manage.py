@@ -24,14 +24,8 @@ def main():
         import django
         django.setup()
         create_superuser()
-    except Exception as e:
-        print(f"Error Creando el SuperUsuario:{e}")
-    except ImportError as exc:
-        raise ImportError(
-            "Couldn't import Django. Are you sure it's installed and "
-            "available on your PYTHONPATH environment variable? Did you "
-            "forget to activate a virtual environment?"
-        ) from exc
+    except Exception as exc:
+        print(f"Error Creando el SuperUsuario:{exc}")
     execute_from_command_line(sys.argv)
 
 
