@@ -1,5 +1,5 @@
 {% extends "../landingPage/base.html" %} {% block content %}
-{% if libro %}
+{% if prestamos %}
 <div class="container">
     <h1 class="my-3">Prestamos Realizados</h1>
   <table class="table">
@@ -7,13 +7,15 @@
       <tr>
         <th scope="col">Libro</th>
         <th scope="col">Autor</th>
+        <th scope="col">Fecha de Préstamo</th>
       </tr>
     </thead>
     <tbody>
-      {% for libros in libro %}
+      {% for p in prestamos %}
       <tr>
-        <td>{{ libros.autor }}</td>
-        <td>{{ libros.titulo }}</td>
+        <td>{{ p.libro.titulo }}</td>
+        <td>{{ p.libro.autor }}</td>
+        <td>{{ p.fecha_prestamo }}</td>
       </tr>
       {% endfor %}
     </tbody>
