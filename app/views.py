@@ -64,7 +64,8 @@ def lista_libros(request):
 @login_required
 def lista_libros_prestados(request):
     libros_prestados = Prestamo.objects.filter(usuario=request.user)
-    return render(request, 'usuarios/librosprestados.html', {'libro':libros_prestados})
+    libros = [prestado.libro for prestado in libros_prestados]
+    return render(request, 'usuarios/librosprestados.html', {'libro':libros})
 
 #usuario solicitanddo libros
 @login_required

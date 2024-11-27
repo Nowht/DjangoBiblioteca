@@ -1,5 +1,5 @@
 {% extends "../landingPage/base.html" %} {% block content %}
-{% if libros_prestados %}
+{% if libros %}
 <div class="container">
     <h1 class="my-3">Prestamos Realizados</h1>
   <table class="table">
@@ -10,10 +10,10 @@
       </tr>
     </thead>
     <tbody>
-      {% for prestados in libros_prestados %}
+      {% for libro in libros %}
       <tr>
-        <td>{{ prestados.libro.titulo }}</td>
-        <td>{{ prestados.libro.autor }}</td>
+        <td>{{ libro.autor }}</td>
+        <td>{{ libro.titulo }}</td>
       </tr>
       {% endfor %}
     </tbody>
