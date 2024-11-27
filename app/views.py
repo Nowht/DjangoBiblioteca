@@ -60,6 +60,12 @@ def lista_libros(request):
     libros_disponibles = libros.objects.filter(cantidad_disponible__gt = 0, disponibilidad = True)
     return render(request, 'usuarios/listalibros.html', {'libro':libros_disponibles})
 
+#lista de libros prestados por el usuario
+@login_required
+def lista_libros_prestados(request):
+    libros_prestados = Prestamo.objects.filter(usuario=request.user)
+    return render(request, 'usuarios/librosprestados.html', {'libro':libros_prestados})
+
 #usuario solicitanddo libros
 @login_required
 def solicitar_libro(request,id):

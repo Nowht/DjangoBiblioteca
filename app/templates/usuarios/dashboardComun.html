@@ -4,5 +4,6 @@
   <h1>Bienvenido, {{ user.username }}</h1>
   <a href="{% url 'perfil_usuario' %}" class="btn btn-primary">Mi Perfil</a>
   <a href="{% url 'lista_libros' %}" class="btn btn-warning">Prestar Libros</a>
+  <a href="{% url 'prestados' %}" class="btn btn-dark">Libros Prestados</a>
 </div>
 {% endblock %}
